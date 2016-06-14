@@ -15,7 +15,7 @@ namespace PhotoEditor.Core
 				.AsInterfaces()
 				.RegisterAsLazySingleton();
 
-			Mvx.LazyConstructAndRegisterSingleton<IRestServiceClient, RestServiceClient>();
+			Mvx.LazyConstructAndRegisterSingleton<ISoapServiceProxy, SoapServiceProxy>();
 			RegisterAppStart<FirstViewModel>();
 		}
 	}
