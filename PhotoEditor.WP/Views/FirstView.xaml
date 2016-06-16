@@ -28,13 +28,15 @@
             <TextBlock x:Name="ApplicationTitle" Text="Photo editor" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock x:Name="PageTitle" Text="Test view" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
-
-        <StackPanel Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock Text="{Binding Result, Mode=TwoWay}" />
-			<Button Content="Call method 1" Command="{Binding CallFirstMethodCommand}"/>
-			<Button Content="Call method 2" Command="{Binding CallSecondMethodCommand}"/>
-			<ProgressBar Margin="0 50" IsIndeterminate="True" Visibility="{Binding Working, Converter={StaticResource BoolToVisibilityConverter}}"/>
-        </StackPanel>
+		<ScrollViewer Grid.Row="1" Margin="12,0,12,0">
+            <StackPanel Margin="12,0,12,0">
+                <TextBlock Text="{Binding WeatherReport}" />
+                <TextBox Text="{Binding City, Mode=TwoWay}"/>
+                <TextBox Text="{Binding Country, Mode=TwoWay}"/>
+                <Button Content="Get weather" Command="{Binding CallFirstMethodCommand}"/>
+                <!--<ProgressBar Margin="0 50" IsIndeterminate="True" Visibility="{Binding Working, Converter={StaticResource BoolToVisibilityConverter}}"/>-->
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 
 </views:MvxPhonePage>

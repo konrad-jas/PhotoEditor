@@ -14,10 +14,10 @@ namespace PhotoEditor.Core.ViewModels
 			set { SetProperty(ref _working, value); }
 		}
 
-		public async void RunInBackground<TArg>(Func<TArg> backgroundTask, Action<TArg> callbackAction = null)
+		public async void RunInBackground<TArg>(Func<Task<TArg>> backgroundTask, Action<TArg> callbackAction = null)
 		{
 			Working = true;
-			var result = await Task.Run(backgroundTask);
+			var result = await Task.Run(async () => await backgroundTask());
 			if (result != null)
 				callbackAction?.Invoke(result);
 

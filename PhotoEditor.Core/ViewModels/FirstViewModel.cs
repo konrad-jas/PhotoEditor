@@ -6,32 +6,40 @@ namespace PhotoEditor.Core.ViewModels
 {
 	public class FirstViewModel : BaseViewModel
 	{
-		private readonly ISoapServiceProxy _serviceProxy;
-		private string _result = "Hello";
+		private readonly ISoapServiceClient _serviceClient;
+		private string _weatherReport;
+		private string _city = "City name";
+		private string _country = "Country name";
 
-		public string Result
+		public string WeatherReport
 		{
-			get { return _result; }
-			set { SetProperty(ref _result, value); }
+			get { return _weatherReport; }
+			set { SetProperty(ref _weatherReport, value); }
 		}
 
-		public FirstViewModel(ISoapServiceProxy serviceProxy)
+		public string City
 		{
-			_serviceProxy = serviceProxy;
+			get { return _city; }
+			set { SetProperty(ref _city, value); }
+		}
+
+		public string Country
+		{
+			get { return _country; }
+			set { SetProperty(ref _country, value); }
+		}
+
+		public FirstViewModel(ISoapServiceClient serviceClient)
+		{
+			_serviceClient = serviceClient;
 			CallFirstMethodCommand = new MvxCommand(CallFirstMethodAction);
-			CallSecondMethodCommand = new MvxCommand(CallSecondMethodAction);
 		}
 
-		public ICommand CallSecondMethodCommand { get; private set; }
-		private void CallSecondMethodAction()
-		{
-			RunInBackground(() => _serviceProxy.Method2(), result => Result = result);
-		}
 
 		public ICommand CallFirstMethodCommand { get; private set; }
-		private void CallFirstMethodAction()
+		private  void CallFirstMethodAction()
 		{
-			RunInBackground(() => _serviceProxy.Method1(), result => Result = result);
+			RunInBackground(() => _serviceClient.GetWeather(City, Country), result => WeatherReport = result);
 		}
 	}
 }
